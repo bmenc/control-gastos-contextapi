@@ -15,7 +15,6 @@ export default function BudgetForm() {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Añadir o Definir Presupuesto');
         dispatch({ type: 'add-budget', payload: { budget } })
     }
 
