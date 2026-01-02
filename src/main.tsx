@@ -6,8 +6,8 @@ import { BudgetProvider } from './context/BudgetContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {/* <BudgetProvider> */}
-    <App />
-    {/* </BudgetProvider> */}
+    <BudgetProvider>
+      <App />
+    </BudgetProvider>
   </StrictMode>,
 )
