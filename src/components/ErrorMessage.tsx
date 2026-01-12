@@ -1,8 +1,4 @@
-import type { PropsWithChildren, ReactNode } from "react";
-
-type ErrorMessageProps = {
-  children: ReactNode;
-}
+import type { PropsWithChildren } from "react";
 
 export default function ErrorMessage({ children }: PropsWithChildren) {
   return (
