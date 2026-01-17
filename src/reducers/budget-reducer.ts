@@ -55,12 +55,10 @@ export const budgetReducer = (
     case 'add-expense': {
       const expense = createExpense(actions.payload.expense);
 
-      console.log(expense);
-
-
       return {
         ...state,
-        expenses: [...state.expenses, expense]
+        expenses: [...state.expenses, expense],
+        modal: false
       }
     }
     default: return state;
