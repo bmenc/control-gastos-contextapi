@@ -53,10 +53,16 @@ export const budgetReducer = (
     }
     case 'add-expense': {
       const expense = createExpense(actions.payload.expense);
-
       return {
         ...state,
         expenses: [...state.expenses, expense],
+        modal: false
+      }
+    }
+    case 'remove-expense': {
+      return {
+        ...state,
+        expenses: state.expenses.filter(expense => expense.id !== actions.payload.id),
         modal: false
       }
     }
