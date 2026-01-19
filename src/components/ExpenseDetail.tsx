@@ -26,11 +26,11 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
     return (
       <LeadingActions>
         <SwipeAction
-          onClick={() => { }}
+          onClick={() => dispatch({ type: 'get-expense-by-id', payload: { id: expense.id } })}
         >
           Actualizar
         </SwipeAction>
-      </LeadingActions>
+      </LeadingActions >
     )
   }
 
@@ -54,7 +54,7 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-        <div className="bg-white shadow-lg p-10 w-full border-b border-gray-200 flex gap-5 items-center rounded-md">
+        <div className="bg-white shadow-lg p-10 w-full border-b border-gray-200 flex gap-5 items-center rounded-md select-none">
           <div>
             <img src={`/icono_${categoryInfo.icon}.svg`} alt="Icono Gasto" className="w-20" />
           </div>
