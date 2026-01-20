@@ -8,7 +8,8 @@ export type BudgetActions =
   { type: 'close-modal' } |
   { type: 'add-expense', payload: { expense: DraftExpense } } |
   { type: 'remove-expense', payload: { id: Expense['id'] } } |
-  { type: 'get-expense-by-id', payload: { id: Expense['id'] } }
+  { type: 'get-expense-by-id', payload: { id: Expense['id'] } } |
+  {type: 'update-expense', payload: {expense: Expense}}
 
 export type BudgetState = {
   budget: number,
@@ -51,7 +52,8 @@ export const budgetReducer = (
     case 'close-modal': {
       return {
         ...state,
-        modal: false
+        modal: false,
+        editingId: ''
       }
     }
     case 'add-expense': {
@@ -59,7 +61,8 @@ export const budgetReducer = (
       return {
         ...state,
         expenses: [...state.expenses, expense],
-        modal: false
+        modal: false,
+        editingId: ''
       }
     }
     case 'remove-expense': {
@@ -74,6 +77,13 @@ export const budgetReducer = (
         ...state,
         editingId: actions.payload.id,
         modal: true
+      }
+    }
+    case 'update-expense': {
+      return {
+        ...state,
+        expenses: state.expenses.map(expense => expense.id === actions.payload.expense.id ? actions.payload.expense: expense),
+        modal: false
       }
     }
     default: return state;

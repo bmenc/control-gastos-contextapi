@@ -49,7 +49,12 @@ export default function ExpenseForm() {
       return;
     }
 
-    dispatch({ type: 'add-expense', payload: { expense } });
+    if (state.editingId) {
+      dispatch({ type: 'update-expense', payload: { expense: { id: state.editingId, ...expense } } });
+    } else {
+      dispatch({ type: 'add-expense', payload: { expense } });
+    }
+
     setExpense({
       amount: 0,
       expenseName: '',
