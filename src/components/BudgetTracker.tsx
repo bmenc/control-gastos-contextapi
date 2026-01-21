@@ -1,16 +1,29 @@
-import { useMemo } from "react";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useBudget } from "../hooks/useBudget";
 import AmountDisplay from "./AmountDisplay";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function BudgetTracker() {
   const { state, totalExpenses, remainingBudget } = useBudget();
+  const percentageSpent = +((totalExpenses / state.budget) * 100).toFixed(2);
 
   return (
-    <div className="grid grid-cols-1 md-grid-cols-2 gap-5">
-      <div className="flex justify-center">
-        <img src="/grafico.jpg" alt="Gráfica de gastos" />
+    <div className="flex gap-5">
+      <div className="w-1/2 flex justify-center items-center">
+        <div className="w-48 h-48">
+          <CircularProgressbar
+            value={percentageSpent}
+            styles={buildStyles({
+              pathColor: percentageSpent >= 100 ? '#dc2626' : '#3b82f6',
+              trailColor: '#F5F5F5',
+              textSize: '10px',
+              textColor: percentageSpent >= 100 ? '#dc2626' : '#3b82f6'
+            })}
+            text={`${percentageSpent}% Gastado`}
+          />
+        </div>
       </div>
-      <div className="flex flex-col justify-center items-center gap-8">
+      <div className="w-1/2 flex flex-col justify-center items-center gap-8">
         <button
           type="button"
           className="bg-pink-600 w-full p-2 text-white uppercase font-bold rounded-lg"
