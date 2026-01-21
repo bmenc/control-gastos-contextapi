@@ -15,13 +15,14 @@ export default function ExpenseForm() {
     date: new Date()
   })
   const [error, setError] = useState('');
-
-  const { dispatch, state } = useBudget()
+  const [previousAmount, setPreviousAmount] = useState(0)
+  const { dispatch, state, remainingBudget } = useBudget()
 
   useEffect(() => {
     if (state.editingId) {
       const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0]
       setExpense(editingExpense)
+      setPreviousAmount(editingExpense.amount)
     }
   }, [state.editingId])
 
@@ -49,6 +50,11 @@ export default function ExpenseForm() {
       return;
     }
 
+    if (expense.amount <= 0 || isNaN(expense.amount) || (expense.amount - previousAmount) > remainingBudget) {
+      setError('Ese gasto se sale del presupuesto');
+      return;
+    }
+
     if (state.editingId) {
       dispatch({ type: 'update-expense', payload: { expense: { id: state.editingId, ...expense } } });
     } else {
@@ -61,6 +67,9 @@ export default function ExpenseForm() {
       category: '',
       date: new Date()
     })
+
+    setPreviousAmount(0)
+    setError('')
   }
 
   return (
@@ -138,7 +147,7 @@ export default function ExpenseForm() {
       <input
         type="submit"
         className="bg-blue-600 cursor-pointer w-full p-2 text-white uppercase font-bold rounded-lg"
-        value={state.editingId ? 'Actualizar Cambios' : 'Registrar Gasto'} 
+        value={state.editingId ? 'Actualizar Cambios' : 'Registrar Gasto'}
       />
 
     </form>
