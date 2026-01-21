@@ -56,7 +56,8 @@ export const budgetReducer = (
     case 'show-modal': {
       return {
         ...state,
-        modal: true
+        modal: true,
+        editingId: ''
       }
     }
     case 'close-modal': {
@@ -79,7 +80,8 @@ export const budgetReducer = (
       return {
         ...state,
         expenses: state.expenses.filter(expense => expense.id !== actions.payload.id),
-        modal: false
+        modal: false,
+        editingId: ''
       }
     }
     case 'get-expense-by-id': {
@@ -93,7 +95,8 @@ export const budgetReducer = (
       return {
         ...state,
         expenses: state.expenses.map(expense => expense.id === actions.payload.expense.id ? actions.payload.expense : expense),
-        modal: false
+        modal: false,
+        editingId: ''
       }
     }
     default: return state;
